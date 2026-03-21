@@ -1,0 +1,33 @@
+name: Flet Build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
+      - name: Install dependencies
+        run: |
+          pip install flet yt-dlp
+
+      - name: Build APK
+        run: |
+          flet build -t android
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v2
+        with:
+          name: flet-app
+          path: ./build/**/*.apk
