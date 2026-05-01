@@ -1,0 +1,6 @@
+[tool.flet]
+app_title = "YDL Mobile"
+product_name = "YDL Mobile"
+
+[tool.flet.android]
+permissions = ["INTERNET", "WRITE_EXTERNAL_STORAGE", "READ_EXTERNAL_STORAGE"]
