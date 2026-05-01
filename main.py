@@ -5,6 +5,8 @@ from typing import List, Optional
 from yt_dlp import YoutubeDL
 from tqdm import tqdm
 import re
+import flet as ft
+
  
 # =============================================================================
 # UTILITY FUNCTIONS
@@ -283,7 +285,44 @@ try:
  
 except Exception as e:
     print_space()
-    print(f"⚠️ System Error: {e}")        status_text
+    print(f"⚠️ System Error: {e}")        
+
+# ... your yt_dlp logic here ...
+
+def main(page: ft.Page):
+    # Strict Black and White Theme
+    page.theme_mode = ft.ThemeMode.DARK
+    page.bgcolor = "#000000"
+    
+    # UI Components
+    url_input = ft.TextField(
+        label="YouTube URL", 
+        border_color="#FFFFFF", 
+        color="#FFFFFF",
+        focused_border_color="#FFFFFF"
+    )
+    
+    status_text = ft.Text("Ready", color="#FFFFFF")
+    
+    def start_click(e):
+        status_text.value = "Downloading..."
+        page.update()
+        # Call your process_download logic here
+    
+    download_btn = ft.ElevatedButton(
+        "START DOWNLOAD",
+        color="#000000",
+        bgcolor="#FFFFFF",
+        on_click=start_click
+    )
+
+    page.add(
+        ft.Column([
+            ft.Text("YDL MOBILE", size=30, weight="bold", color="#FFFFFF"),
+            url_input,
+            download_btn,
+            status_text
+        ], horizontal_alignment=ft.CrossAxisAlignment.CENTER)
     )
 
 ft.app(target=main)
